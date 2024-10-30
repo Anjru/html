@@ -7,22 +7,24 @@
 }
 
 #table tr {
-    background-color: #f2f2f2;
+    background-color: olive;
     border: 2px solid #000000;
 }
 
 #table td {
-    border: 1px solid #000000;
+    border: 15px solid grey;
     width: 150px; /* Fixed width for cells */
     height: 150px; /* Fixed height for cells */
     padding: 0; /* Remove padding to avoid cell size changes */
     text-align: center; /* Center text horizontally */
     vertical-align: middle; /* Center text vertically */
     font-size: 60px; /* Adjust font size */
+    border-radius: 50px;
 }
 
 body {
     background-color: antiquewhite;
+    
 }
 
 #title {

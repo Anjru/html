@@ -3,6 +3,8 @@ const arrayVal = Array.from({ length: 4 }, () => new Array(4).fill(null));
 const arrayBool = Array.from({ length: 4 }, () => new Array(4).fill(false)); 
 const arraySwitch = Array.from({ length: 4 }, () => new Array(4).fill(false)); 
 
+var movable = false;
+
 function main() {
     let x, y;
 
@@ -52,6 +54,35 @@ function update() {
         for (let j = 0; j < 4; j++) { // Loop through 4 columns
             // Display empty string if null
             table.rows[i].cells[j].innerText = arrayVal[i][j] !== null ? arrayVal[i][j] : ''; 
+            if (Number(table.rows[i].cells[j].innerText) === 2) {
+                table.rows[i].cells[j].style.backgroundColor = "antiquewhite";
+            } else if (Number(table.rows[i].cells[j].innerText) === 4) {
+                table.rows[i].cells[j].style.backgroundColor = "khaki";
+            } else if (Number(table.rows[i].cells[j].innerText) === 8) {
+                table.rows[i].cells[j].style.backgroundColor = "sandybrown";
+            } else if (Number(table.rows[i].cells[j].innerText) === 16) {
+                table.rows[i].cells[j].style.backgroundColor = "chocolate";
+            } else if (Number(table.rows[i].cells[j].innerText) === 32) {
+                table.rows[i].cells[j].style.backgroundColor = "brown";
+            } else if (Number(table.rows[i].cells[j].innerText) === 64) {
+                table.rows[i].cells[j].style.backgroundColor = "crimson";
+            } else if (Number(table.rows[i].cells[j].innerText) === 128) {
+                table.rows[i].cells[j].style.backgroundColor = "yellow";
+            } else if (Number(table.rows[i].cells[j].innerText) === 256) {
+                table.rows[i].cells[j].style.backgroundColor = "yellow";
+            } else if (Number(table.rows[i].cells[j].innerText) === 512) {
+                table.rows[i].cells[j].style.backgroundColor = "yellow";
+            } else if (Number(table.rows[i].cells[j].innerText) === 1024) {
+                table.rows[i].cells[j].style.backgroundColor = "yellow";
+            } else if (Number(table.rows[i].cells[j].innerText) === 2048) {
+                table.rows[i].cells[j].style.backgroundColor = "yellow";
+            } else if (Number(table.rows[i].cells[j].innerText) === 4096) {
+                table.rows[i].cells[j].style.backgroundColor = "black";
+            } else if (Number(table.rows[i].cells[j].innerText) === 8192) {
+                table.rows[i].cells[j].style.backgroundColor = "black";
+            } else {
+                table.rows[i].cells[j].style.backgroundColor = "olive";
+            }
         }
     }
 }
@@ -94,11 +125,11 @@ function sleep(ms) {
 }
 
 async function wait() {
-    await sleep(2000);
+    await sleep(10);
     
 }
 
-function up(){
+async function up(){
     boolReset();
     //animate up 3 times max
     for(var k = 0; k < 3; k++){
@@ -111,10 +142,10 @@ function up(){
                     var tempVal = arrayVal[j][i];
                     arrayVal[j][i] = null;
                     arrayVal[j-1][i] = tempVal;
-
+                    movable = true;
                 } else { // NEXT NOT NULL
                     //CHECK COMBINE
-                    if(arraySwitch[j-1][i] == false){
+                    if(arraySwitch[j-1][i] == false && arraySwitch[j][i] == false){
                         //COMBINE
                         if(arrayVal[j-1][i] == arrayVal[j][i]){
                             arrayVal[j-1][i] *= 2;
@@ -122,6 +153,7 @@ function up(){
                             arraySwitch[j-1][i] = true;
                             
                             arrayBool[j][i] = true;
+                            movable = true;
                         }
                     }
                     //Can't Combine
@@ -135,14 +167,16 @@ function up(){
     }
 
     update();
-    wait();
+    await wait();
     }
-    //Should only random if can move or combine FIX!!!!!!!!!!!!!!!!!!!!!!!
-    newRandom();
+    if(movable == true){
+        newRandom();
+        movable = false;
+    }
     
 }
 
-function down(){
+async function down(){
     boolReset();
     //animate down 3 times max
     for(var k = 0; k < 3; k++){
@@ -155,10 +189,10 @@ function down(){
                     var tempVal = arrayVal[j][i];
                     arrayVal[j][i] = null;
                     arrayVal[j+1][i] = tempVal;
-
+                    movable = true;
                 } else { // NEXT NOT NULL
                     //CHECK COMBINE
-                    if(arraySwitch[j+1][i] == false){
+                    if(arraySwitch[j+1][i] == false && arraySwitch[j][i] == false){
                         //COMBINE
                         if(arrayVal[j+1][i] == arrayVal[j][i]){
                             arrayVal[j+1][i] *= 2;
@@ -166,6 +200,7 @@ function down(){
                             arraySwitch[j+1][i] = true;
                             
                             arrayBool[j][i] = true;
+                            movable = true;
                         }
                     }
                     //Can't Combine
@@ -179,11 +214,15 @@ function down(){
     }
 
     update();
-    wait();
+    await wait();
+    }
+    if(movable == true){
+        newRandom();
+        movable = false;
     }
 }
 
-function left(){
+async function left(){
     boolReset();
     //animate up 3 times max
     for(var k = 0; k < 3; k++){
@@ -196,10 +235,10 @@ function left(){
                     var tempVal = arrayVal[j][i];
                     arrayVal[j][i] = null;
                     arrayVal[j][i-1] = tempVal;
-
+                    movable = true;
                 } else { // NEXT NOT NULL
                     //CHECK COMBINE
-                    if(arraySwitch[j][i-1] == false){
+                    if(arraySwitch[j][i-1] == false && arraySwitch[j][i] == false){
                         //COMBINE
                         if(arrayVal[j][i-1] == arrayVal[j][i]){
                             arrayVal[j][i-1] *= 2;
@@ -207,6 +246,7 @@ function left(){
                             arraySwitch[j][i-1] = true;
                             
                             arrayBool[j][i] = true;
+                            movable = true;
                         }
                     }
                     //Can't Combine
@@ -220,11 +260,15 @@ function left(){
     }
 
     update();
-    wait();
+    await wait();
+    }
+    if(movable == true){
+        newRandom();
+        movable = false;
     }
 }
 
-function right(){
+async function right(){
     boolReset();
     //animate up 3 times max
     for(var k = 0; k < 3; k++){
@@ -237,10 +281,10 @@ function right(){
                     var tempVal = arrayVal[j][i];
                     arrayVal[j][i] = null;
                     arrayVal[j][i+1] = tempVal;
-
+                    movable = true;
                 } else { // NEXT NOT NULL
                     //CHECK COMBINE
-                    if(arraySwitch[j][i+1] == false){
+                    if(arraySwitch[j][i+1] == false && arraySwitch[j][i] == false){
                         //COMBINE
                         if(arrayVal[j][i+1] == arrayVal[j][i]){
                             arrayVal[j][i+1] *= 2;
@@ -248,6 +292,7 @@ function right(){
                             arraySwitch[j][i+1] = true;
                             
                             arrayBool[j][i] = true;
+                            movable = true;
                         }
                     }
                     //Can't Combine
@@ -261,7 +306,11 @@ function right(){
     }
 
     update();
-    wait();
+    await wait();
     }
-    //newRandom();
+    
+    if(movable == true){
+        newRandom();
+        movable = false;
+    }
 }
