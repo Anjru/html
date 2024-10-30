@@ -4,6 +4,7 @@ const arrayBool = Array.from({ length: 4 }, () => new Array(4).fill(false));
 const arraySwitch = Array.from({ length: 4 }, () => new Array(4).fill(false)); 
 
 var movable = false;
+var movable2 = true;
 
 function main() {
     let x, y;
@@ -38,11 +39,14 @@ function newRandom(){
     x = getRandom();
     y = getRandom();
 
+    var retry = true;
+    
     // Check if the position is null
     if (arrayVal[x][y] === null) {
         arrayVal[x][y] = 2; // Set value at random position
+        retry = false;
     } else {
-        i--; // Decrement i to retry if position is occupied
+        newRandom();
     }
     update(); // Call update to show the changes
     }
@@ -56,30 +60,43 @@ function update() {
             table.rows[i].cells[j].innerText = arrayVal[i][j] !== null ? arrayVal[i][j] : ''; 
             if (Number(table.rows[i].cells[j].innerText) === 2) {
                 table.rows[i].cells[j].style.backgroundColor = "antiquewhite";
+                table.rows[i].cells[j].style.color = "black";
             } else if (Number(table.rows[i].cells[j].innerText) === 4) {
                 table.rows[i].cells[j].style.backgroundColor = "khaki";
+                table.rows[i].cells[j].style.color = "black";
             } else if (Number(table.rows[i].cells[j].innerText) === 8) {
                 table.rows[i].cells[j].style.backgroundColor = "sandybrown";
+                table.rows[i].cells[j].style.color = "white";
             } else if (Number(table.rows[i].cells[j].innerText) === 16) {
                 table.rows[i].cells[j].style.backgroundColor = "chocolate";
+                table.rows[i].cells[j].style.color = "white";
             } else if (Number(table.rows[i].cells[j].innerText) === 32) {
                 table.rows[i].cells[j].style.backgroundColor = "brown";
+                table.rows[i].cells[j].style.color = "white";
             } else if (Number(table.rows[i].cells[j].innerText) === 64) {
                 table.rows[i].cells[j].style.backgroundColor = "crimson";
+                table.rows[i].cells[j].style.color = "white";
             } else if (Number(table.rows[i].cells[j].innerText) === 128) {
                 table.rows[i].cells[j].style.backgroundColor = "yellow";
+                table.rows[i].cells[j].style.color = "white";
             } else if (Number(table.rows[i].cells[j].innerText) === 256) {
                 table.rows[i].cells[j].style.backgroundColor = "yellow";
+                table.rows[i].cells[j].style.color = "white";
             } else if (Number(table.rows[i].cells[j].innerText) === 512) {
                 table.rows[i].cells[j].style.backgroundColor = "yellow";
+                table.rows[i].cells[j].style.color = "white";
             } else if (Number(table.rows[i].cells[j].innerText) === 1024) {
                 table.rows[i].cells[j].style.backgroundColor = "yellow";
+                table.rows[i].cells[j].style.color = "white";
             } else if (Number(table.rows[i].cells[j].innerText) === 2048) {
                 table.rows[i].cells[j].style.backgroundColor = "yellow";
+                table.rows[i].cells[j].style.color = "white";
             } else if (Number(table.rows[i].cells[j].innerText) === 4096) {
                 table.rows[i].cells[j].style.backgroundColor = "black";
+                table.rows[i].cells[j].style.color = "white";
             } else if (Number(table.rows[i].cells[j].innerText) === 8192) {
                 table.rows[i].cells[j].style.backgroundColor = "black";
+                table.rows[i].cells[j].style.color = "white";
             } else {
                 table.rows[i].cells[j].style.backgroundColor = "olive";
             }
@@ -130,6 +147,8 @@ async function wait() {
 }
 
 async function up(){
+    if(movable2 == true){
+    movable2 == false;
     boolReset();
     //animate up 3 times max
     for(var k = 0; k < 3; k++){
@@ -169,14 +188,18 @@ async function up(){
     update();
     await wait();
     }
+    movable2 = true;
     if(movable == true){
         newRandom();
         movable = false;
     }
+}
     
 }
 
 async function down(){
+    if(movable2 == true){
+        movable2 == false;
     boolReset();
     //animate down 3 times max
     for(var k = 0; k < 3; k++){
@@ -216,13 +239,17 @@ async function down(){
     update();
     await wait();
     }
+    movable2 = true;
     if(movable == true){
         newRandom();
         movable = false;
     }
 }
+}
 
 async function left(){
+    if(movable2 == true){
+        movable2 == false;
     boolReset();
     //animate up 3 times max
     for(var k = 0; k < 3; k++){
@@ -262,13 +289,18 @@ async function left(){
     update();
     await wait();
     }
+
+    movable2 = true;
     if(movable == true){
         newRandom();
         movable = false;
     }
 }
+}
 
 async function right(){
+    if(movable2 == true){
+        movable2 == false;
     boolReset();
     //animate up 3 times max
     for(var k = 0; k < 3; k++){
@@ -308,9 +340,10 @@ async function right(){
     update();
     await wait();
     }
-    
+    movable2 = true;
     if(movable == true){
         newRandom();
         movable = false;
     }
+}
 }
